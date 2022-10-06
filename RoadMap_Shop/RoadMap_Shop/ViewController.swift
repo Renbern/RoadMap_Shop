@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - start screen
+// MARK: - start  screen
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
