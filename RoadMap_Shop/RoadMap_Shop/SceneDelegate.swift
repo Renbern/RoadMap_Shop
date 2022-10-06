@@ -14,12 +14,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let applicationScene = (scene as? UIWindowScene) else { return }
-         window?.windowScene = applicationScene
-         window?.makeKeyAndVisible()
-
-         let startViewController = ViewController()
-         let navigationController = UINavigationController(rootViewController: startViewController)
-         window?.rootViewController = navigationController
-
+        window = UIWindow(windowScene: applicationScene)
+        window?.makeKeyAndVisible()
+        
+        let tabBarViewController = TabBarViewController()
+        window?.rootViewController = tabBarViewController
+    
     }
 }
