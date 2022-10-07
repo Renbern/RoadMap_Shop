@@ -7,8 +7,8 @@
 
 import UIKit
 
-// MARK: - tabBar
-class TabBarViewController: UITabBarController {
+/// Конфигурация таб бара
+final class MainTabBarViewController: UITabBarController {
 
     // MARK: - Constants
     private enum Constants {

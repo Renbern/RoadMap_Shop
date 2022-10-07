@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - экран предложений для пользователя
+/// Экран предложений для пользователя
 final class OfferViewController: UIViewController {
 
     override func viewDidLoad() {

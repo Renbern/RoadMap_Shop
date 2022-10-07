@@ -7,7 +7,7 @@
 
 import UIKit
 
-    // MARK: - экран "купить"
+/// Экран "купить"
 final class BuyViewController: UIViewController {
 
     override func viewDidLoad() {

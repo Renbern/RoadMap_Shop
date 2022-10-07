@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - корзина 
+/// Экран корзины
 final class CartViewController: UIViewController {
 
     override func viewDidLoad() {

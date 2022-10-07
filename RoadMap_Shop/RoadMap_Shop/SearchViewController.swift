@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - start screen
+/// Экран поиска товара
 final class SearchViewController: UIViewController {
     
     // MARK: - Constants
@@ -46,7 +46,7 @@ final class SearchViewController: UIViewController {
         return search
     }()
     
-    private let searchTextField: UISearchBar = {
+    private let searchBar: UISearchBar = {
         let searchText = UISearchBar()
         searchText.placeholder = Constants.TextForUIElements.searchTextFieldPlaceholder
         searchText.frame = CGRect(x: 12, y: 110, width: 380, height: 45)

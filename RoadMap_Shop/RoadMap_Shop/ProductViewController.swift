@@ -6,8 +6,8 @@
 //
 
 import UIKit
-// productScreen
-class ProductViewController: UIViewController {
+// Экран информации о продукте
+final class ProductViewController: UIViewController {
 
     // MARK: - Public properties
     lazy var productImageView = UIImageView()
