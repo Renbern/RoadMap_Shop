@@ -10,69 +10,20 @@ import UIKit
 /// Экран поиска товара
 final class SearchViewController: UIViewController {
     
-    // MARK: - Constants
-    private enum Constants {
-        enum TextForUIElements {
-            static let searchLabelText = "Поиск"
-            static let searchTextFieldPlaceholder = "Поиск по продуктам и магазинам"
-            static let recentlyViewedProductLabelText = "Недавно просмотренные"
-            static let clearButtonText = "Очистить"
-            static let requestLabelText = "Варианты запросов"
-            static let airPodsRequestLabelText = "AirPods"
-            static let appleCareRequestLabelText = "Apple Care"
-            static let beatsRequestLabelText = "Beats"
-            static let compareModelsLabelText = "Сравните модели iPhone"
-        }
-        
-        enum ProductText {
-            static let caseBlackNameLabelText = "Чехол Incase Flat для MacBook Pro 16 дюймов"
-            static let appleWatchStrapLabelText = "Спортивный ремешок Black Unity (для к"
-            static let caseBrownLabelText = "Кожанный чехол для MacBook Pro 16 дюймов"
-        }
-        
-        static let appleWatchImageName = ["appleWatch"]
-        static let appleWatchStrapImageName = ["appleWatchStrap"]
-        static let airPodsImageName = ["airPods"]
-        static let blackCaseImageName = ["caseBlackBack", "caseBlackFront", "caseBlackSide"]
-        static let brownCaseImageName = ["caseBrownBack", "caseBrownFront1", "caseBrownFront2"]
-    }
-
-    // MARK: - Private properties
-    private let searchLabel: UILabel = {
-        let search = UILabel()
-        search.text = Constants.TextForUIElements.searchLabelText
-        search.frame = CGRect(x: 25, y: 60, width: 150, height: 50)
-        search.font = .systemFont(ofSize: 35, weight: .bold)
-        return search
-    }()
-    
-    private let searchBar: UISearchBar = {
-        let searchText = UISearchBar()
-        searchText.placeholder = Constants.TextForUIElements.searchTextFieldPlaceholder
-        searchText.frame = CGRect(x: 12, y: 110, width: 380, height: 45)
-        return searchText
-    }()
-    
-    private let recentlyViewedProductLabel: UILabel = {
-        let viewedProduct = UILabel()
-        viewedProduct.text = Constants.TextForUIElements.recentlyViewedProductLabelText
-        viewedProduct.frame = CGRect(x: 15, y: 170, width: 280, height: 50)
-        viewedProduct.font = .systemFont(ofSize: 20, weight: .bold)
-        return viewedProduct
-    }()
-    
-    private let clearButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle(Constants.TextForUIElements.clearButtonText, for: .normal)
-        button.frame = CGRect(x: 290, y: 181, width: 80, height: 30)
-        return button
+    // MARK: - Public properties
+    private lazy var productsScrollView: UIScrollView = {
+       let scrollView = UIScrollView()
+        scrollView.frame = CGRect(x: 0, y: 250, width: self.view.bounds.width, height: 190)
+        scrollView.contentSize = CGSize(width: 680, height: 190)
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
     }()
     
     private lazy var blackCaseView: UIView = {
         let caseView = UIView()
-        caseView.backgroundColor = .systemGray6
+        caseView.backgroundColor = UIColor(named: Constants.MyColorForUIElements.grayForProductView)
         caseView.layer.cornerRadius = 15
-        caseView.frame = CGRect(x: 20, y: 230, width: 150, height: 190)
+        caseView.frame = CGRect(x: 20, y: 0, width: 150, height: 190)
         caseView.tag = 0
         caseView.addGestureRecognizer(
             UITapGestureRecognizer(
@@ -83,29 +34,11 @@ final class SearchViewController: UIViewController {
         return caseView
     }()
     
-    private let caseBlackImageView: UIImageView = {
-        let caseImage = UIImageView()
-        caseImage.image = UIImage(named: Constants.blackCaseImageName[0])
-        caseImage.frame = CGRect(x: 15, y: 7, width: 110, height: 110)
-        caseImage.contentMode = .scaleAspectFit
-        return caseImage
-    }()
-    
-    private let caseBlackNameLabel: UILabel = {
-        let productName = UILabel()
-        productName.text = Constants.ProductText.caseBlackNameLabelText
-        productName.frame = CGRect(x: 10, y: 90, width: 130, height: 100)
-        productName.font = .systemFont(ofSize: 12, weight: .bold)
-        productName.numberOfLines = 0
-        productName.lineBreakMode = .byWordWrapping
-        return productName
-    }()
-    
     private lazy var appleWatchStrapView: UIView = {
         let caseView = UIView()
-        caseView.backgroundColor = .systemGray6
+        caseView.backgroundColor = UIColor(named: Constants.MyColorForUIElements.grayForProductView)
         caseView.layer.cornerRadius = 15
-        caseView.frame = CGRect(x: 180, y: 230, width: 150, height: 190)
+        caseView.frame = CGRect(x: blackCaseView.frame.maxX + 10, y: 0, width: 150, height: 190)
         caseView.tag = 1
         caseView.addGestureRecognizer(
             UITapGestureRecognizer(
@@ -116,29 +49,11 @@ final class SearchViewController: UIViewController {
         return caseView
     }()
     
-    private let appleWatchStrapImageView: UIImageView = {
-        let caseImage = UIImageView()
-        caseImage.image = UIImage(named: Constants.appleWatchStrapImageName[0])
-        caseImage.frame = CGRect(x: 15, y: 7, width: 110, height: 110)
-        caseImage.contentMode = .scaleAspectFit
-        return caseImage
-    }()
-    
-    private let appleWatchStrapNameLabel: UILabel = {
-        let productName = UILabel()
-        productName.text = Constants.ProductText.appleWatchStrapLabelText
-        productName.frame = CGRect(x: 10, y: 90, width: 130, height: 100)
-        productName.font = .systemFont(ofSize: 12, weight: .bold)
-        productName.numberOfLines = 0
-        productName.lineBreakMode = .byWordWrapping
-        return productName
-    }()
-    
     private lazy var caseBrownView: UIView = {
         let caseView = UIView()
-        caseView.backgroundColor = .systemGray6
+        caseView.backgroundColor = UIColor(named: Constants.MyColorForUIElements.grayForProductView)
         caseView.layer.cornerRadius = 15
-        caseView.frame = CGRect(x: 345, y: 230, width: 150, height: 190)
+        caseView.frame = CGRect(x: appleWatchStrapView.frame.maxX + 10, y: 0, width: 150, height: 190)
         caseView.tag = 2
         caseView.addGestureRecognizer(
             UITapGestureRecognizer(
@@ -149,9 +64,89 @@ final class SearchViewController: UIViewController {
         return caseView
     }()
     
+    private lazy var iPhoneView: UIView = {
+        let iPhone = UIView()
+        iPhone.backgroundColor = UIColor(named: Constants.MyColorForUIElements.grayForProductView)
+        iPhone.layer.cornerRadius = 15
+        iPhone.frame = CGRect(x: caseBrownView.frame.maxX + 10, y: 0, width: 150, height: 190)
+        iPhone.tag = 3
+        iPhone.addGestureRecognizer(
+            UITapGestureRecognizer(
+                target: self,
+                action: #selector(handleTap)
+            )
+        )
+        return iPhone
+    }()
+    
+    // MARK: - Private properties
+    private let constants = Constants()
+    
+    private let searchBar: UISearchBar = {
+        let searchText = UISearchBar()
+        searchText.placeholder = Constants.TextForUIElements.searchTextFieldPlaceholder
+        searchText.frame = CGRect(x: 12, y: 160, width: 380, height: 40)
+        searchText.searchBarStyle = .minimal
+        return searchText
+    }()
+    
+    private let recentlyViewedProductLabel: UILabel = {
+        let viewedProduct = UILabel()
+        viewedProduct.text = Constants.TextForUIElements.recentlyViewedProductLabelText
+        viewedProduct.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
+        viewedProduct.frame = CGRect(x: 15, y: 211, width: 280, height: 30)
+        viewedProduct.font = .systemFont(ofSize: 20, weight: .bold)
+        return viewedProduct
+    }()
+    
+    private let clearButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(Constants.TextForUIElements.clearButtonText, for: .normal)
+        button.frame = CGRect(x: 290, y: 211, width: 80, height: 30)
+        return button
+    }()
+    
+    private let caseBlackImageView: UIImageView = {
+        let caseImage = UIImageView()
+        caseImage.image = UIImage(named: Constants.ProductImageName.blackCaseImageName[0])
+        caseImage.frame = CGRect(x: 15, y: 7, width: 110, height: 110)
+        caseImage.contentMode = .scaleAspectFit
+        return caseImage
+    }()
+    
+    private let caseBlackNameLabel: UILabel = {
+        let productName = UILabel()
+        productName.text = Constants.ProductText.caseBlackNameLabelText
+        productName.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
+        productName.frame = CGRect(x: 10, y: 90, width: 130, height: 100)
+        productName.font = .systemFont(ofSize: 12, weight: .bold)
+        productName.numberOfLines = 0
+        productName.lineBreakMode = .byWordWrapping
+        return productName
+    }()
+    
+    private let appleWatchStrapImageView: UIImageView = {
+        let caseImage = UIImageView()
+        caseImage.image = UIImage(named: Constants.ProductImageName.appleWatchStrapImageName[0])
+        caseImage.frame = CGRect(x: 15, y: 7, width: 110, height: 110)
+        caseImage.contentMode = .scaleAspectFit
+        return caseImage
+    }()
+    
+    private let appleWatchStrapNameLabel: UILabel = {
+        let productName = UILabel()
+        productName.text = Constants.ProductText.appleWatchStrapLabelText
+        productName.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
+        productName.frame = CGRect(x: 10, y: 90, width: 130, height: 100)
+        productName.font = .systemFont(ofSize: 12, weight: .bold)
+        productName.numberOfLines = 0
+        productName.lineBreakMode = .byWordWrapping
+        return productName
+    }()
+    
     private let caseBrownImageView: UIImageView = {
         let caseImage = UIImageView()
-        caseImage.image = UIImage(named: Constants.brownCaseImageName[0])
+        caseImage.image = UIImage(named: Constants.ProductImageName.brownCaseImageName[0])
         caseImage.frame = CGRect(x: 15, y: 7, width: 110, height: 110)
         caseImage.contentMode = .scaleAspectFit
         return caseImage
@@ -160,6 +155,26 @@ final class SearchViewController: UIViewController {
     private let caseBrownNameLabel: UILabel = {
         let productName = UILabel()
         productName.text = Constants.ProductText.caseBrownLabelText
+        productName.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
+        productName.frame = CGRect(x: 10, y: 90, width: 130, height: 100)
+        productName.font = .systemFont(ofSize: 12, weight: .bold)
+        productName.numberOfLines = 0
+        productName.lineBreakMode = .byWordWrapping
+        return productName
+    }()
+    
+    private let iPhoneImageView: UIImageView = {
+        let iPhoneImage = UIImageView()
+        iPhoneImage.image = UIImage(named: Constants.ProductImageName.iPhone[0])
+        iPhoneImage.frame = CGRect(x: 15, y: 7, width: 110, height: 110)
+        iPhoneImage.contentMode = .scaleAspectFit
+        return iPhoneImage
+    }()
+    
+    private let iPhoneNameLabel: UILabel = {
+        let productName = UILabel()
+        productName.text = Constants.ProductText.iPhoneLabelText
+        productName.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
         productName.frame = CGRect(x: 10, y: 90, width: 130, height: 100)
         productName.font = .systemFont(ofSize: 12, weight: .bold)
         productName.numberOfLines = 0
@@ -170,6 +185,7 @@ final class SearchViewController: UIViewController {
     private let requestOptionsLabel: UILabel = {
         let viewedProduct = UILabel()
         viewedProduct.text = Constants.TextForUIElements.requestLabelText
+        viewedProduct.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
         viewedProduct.frame = CGRect(x: 15, y: 440, width: 280, height: 50)
         viewedProduct.font = .systemFont(ofSize: 20, weight: .bold)
         return viewedProduct
@@ -184,6 +200,7 @@ final class SearchViewController: UIViewController {
     private let airPodsRequestLabel: UILabel = {
         let airPods = UILabel()
         airPods.frame = CGRect(x: 35, y: 5, width: 200, height: 30)
+        airPods.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
         airPods.font = .systemFont(ofSize: 20, weight: .light)
         airPods.text = Constants.TextForUIElements.airPodsRequestLabelText
         return airPods
@@ -196,11 +213,12 @@ final class SearchViewController: UIViewController {
     }()
     
     private let appleCareRequestLabel: UILabel = {
-        let airPods = UILabel()
-        airPods.frame = CGRect(x: 35, y: 5, width: 200, height: 30)
-        airPods.font = .systemFont(ofSize: 20, weight: .light)
-        airPods.text = Constants.TextForUIElements.appleCareRequestLabelText
-        return airPods
+        let appleCare = UILabel()
+        appleCare.frame = CGRect(x: 35, y: 5, width: 200, height: 30)
+        appleCare.font = .systemFont(ofSize: 20, weight: .light)
+        appleCare.text = Constants.TextForUIElements.appleCareRequestLabelText
+        appleCare.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
+        return appleCare
     }()
     
     private let beatsRequestView: UIView = {
@@ -210,11 +228,12 @@ final class SearchViewController: UIViewController {
     }()
     
     private let beatsRequestLabel: UILabel = {
-        let airPods = UILabel()
-        airPods.frame = CGRect(x: 35, y: 5, width: 200, height: 30)
-        airPods.font = .systemFont(ofSize: 20, weight: .light)
-        airPods.text = Constants.TextForUIElements.beatsRequestLabelText
-        return airPods
+        let beats = UILabel()
+        beats.frame = CGRect(x: 35, y: 5, width: 200, height: 30)
+        beats.font = .systemFont(ofSize: 20, weight: .light)
+        beats.text = Constants.TextForUIElements.beatsRequestLabelText
+        beats.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
+        return beats
     }()
     
     private let compareModelsView: UIView = {
@@ -224,38 +243,39 @@ final class SearchViewController: UIViewController {
     }()
     
     private let compareModelsLabel: UILabel = {
-        let airPods = UILabel()
-        airPods.frame = CGRect(x: 35, y: 5, width: 260, height: 30)
-        airPods.font = .systemFont(ofSize: 20, weight: .light)
-        airPods.text = Constants.TextForUIElements.compareModelsLabelText
-        return airPods
+        let compareModel = UILabel()
+        compareModel.frame = CGRect(x: 35, y: 5, width: 260, height: 30)
+        compareModel.font = .systemFont(ofSize: 20, weight: .light)
+        compareModel.text = Constants.TextForUIElements.compareModelsLabelText
+        compareModel.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
+        return compareModel
     }()
     
     private let magnifyingGlassAirPodsImage: UIImageView = {
-        let image = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+        let image = UIImageView(image: UIImage(systemName: Constants.SystemImage.searchGlass))
         image.frame = CGRect(x: 5, y: 10, width: 20, height: 20)
-        image.tintColor = .white
+        image.tintColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
         return image
     }()
     
     private let magnifyingGlassAppleCareImage: UIImageView = {
-        let image = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+        let image = UIImageView(image: UIImage(systemName: Constants.SystemImage.searchGlass))
         image.frame = CGRect(x: 5, y: 10, width: 20, height: 20)
-        image.tintColor = .white
+        image.tintColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
         return image
     }()
     
     private let magnifyingGlassBeatsImage: UIImageView = {
-        let image = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+        let image = UIImageView(image: UIImage(systemName: Constants.SystemImage.searchGlass))
         image.frame = CGRect(x: 5, y: 10, width: 20, height: 20)
-        image.tintColor = .white
+        image.tintColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
         return image
     }()
     
     private let magnifyingGlassCompareModelsImage: UIImageView = {
-        let image = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+        let image = UIImageView(image: UIImage(systemName: Constants.SystemImage.searchGlass))
         image.frame = CGRect(x: 5, y: 10, width: 20, height: 20)
-        image.tintColor = .white
+        image.tintColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
         return image
     }()
     
@@ -270,24 +290,33 @@ final class SearchViewController: UIViewController {
         let productVC = ProductViewController()
         switch sender.view?.tag {
         case 0:
-            productVC.productImageView.image = caseBlackImageView.image
-            productVC.productNameLabel.text = caseBlackNameLabel.text
+            productVC.productImages = Constants.ProductImageName.blackCaseImageName
+            productVC.productNameLabel.text = Constants.ProductText.caseBlackNameLabelText
+            productVC.productColorNameLabel.text = Constants.ProductText.caseBlackNameLabelText
         case 1:
-            productVC.productImageView.image = appleWatchStrapImageView.image
-            productVC.productNameLabel.text = appleWatchStrapNameLabel.text
+            productVC.productImages = Constants.ProductImageName.appleWatchStrapImageName
+            productVC.productNameLabel.text = Constants.ProductText.appleWatchStrapLabelText
         case 2:
-            productVC.productImageView.image = caseBrownImageView.image
-            productVC.productNameLabel.text = caseBrownNameLabel.text
+            productVC.productImages = Constants.ProductImageName.brownCaseImageName
+            productVC.productNameLabel.text = Constants.ProductText.caseBrownLabelText
+        case 3:
+            productVC.productImages = Constants.ProductImageName.iPhone
+            productVC.productNameLabel.text = Constants.ProductText.iPhoneLabelText
         default:
             print("Error")
         }
+        
+        let backButtonItem = UIBarButtonItem()
+        backButtonItem.title = Constants.TextForUIElements.searchLabelText
+        navigationItem.backBarButtonItem = backButtonItem
         navigationController?.pushViewController(productVC, animated: true)
     }
     
     private func setupUI() {
-        view.backgroundColor = .black
-        view.addSubview(searchLabel)
-        view.addSubview(searchTextField)
+        view.backgroundColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteView)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = Constants.TextForUIElements.searchLabelText
+        view.addSubview(searchBar)
         view.addSubview(recentlyViewedProductLabel)
         view.addSubview(clearButton)
         view.addSubview(requestOptionsLabel)
@@ -316,14 +345,20 @@ final class SearchViewController: UIViewController {
         compareModelsView.addSubview(magnifyingGlassCompareModelsImage)
         compareModelsView.setUnderLine()
         
-        view.addSubview(blackCaseView)
-        view.addSubview(appleWatchStrapView)
-        view.addSubview(caseBrownView)
+        view.addSubview(productsScrollView)
         blackCaseView.addSubview(caseBlackImageView)
         blackCaseView.addSubview(caseBlackNameLabel)
         appleWatchStrapView.addSubview(appleWatchStrapImageView)
         appleWatchStrapView.addSubview(appleWatchStrapNameLabel)
         caseBrownView.addSubview(caseBrownImageView)
         caseBrownView.addSubview(caseBrownNameLabel)
+        iPhoneView.addSubview(iPhoneImageView)
+        iPhoneView.addSubview(iPhoneNameLabel)
+        
+        productsScrollView.addSubview(blackCaseView)
+        productsScrollView.addSubview(appleWatchStrapView)
+        productsScrollView.addSubview(caseBrownView)
+        productsScrollView.addSubview(iPhoneView)
+        
     }
 }
