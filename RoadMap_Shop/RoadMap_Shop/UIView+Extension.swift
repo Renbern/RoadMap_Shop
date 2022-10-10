@@ -7,7 +7,7 @@
 
 import UIKit
 
-/// Подчеркивание элементов
+/// подчеркивание элементов
 extension UIView {
     func setUnderLine() {
         let border = CALayer()

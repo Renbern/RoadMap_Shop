@@ -12,6 +12,5 @@ final class BuyViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteView)
     }
 }
