@@ -7,23 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		047D521F28EF7F9500760D20 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047D521E28EF7F9500760D20 /* ProductViewController.swift */; };
 		04DC615528EF39070020F2CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC615428EF39070020F2CD /* AppDelegate.swift */; };
 		04DC615728EF39070020F2CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC615628EF39070020F2CD /* SceneDelegate.swift */; };
-		04DC615928EF39070020F2CD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC615828EF39070020F2CD /* ViewController.swift */; };
+		04DC615928EF39070020F2CD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC615828EF39070020F2CD /* SearchViewController.swift */; };
 		04DC615C28EF39070020F2CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DC615A28EF39070020F2CD /* Main.storyboard */; };
 		04DC615E28EF390A0020F2CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04DC615D28EF390A0020F2CD /* Assets.xcassets */; };
 		04DC616128EF390A0020F2CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04DC615F28EF390A0020F2CD /* LaunchScreen.storyboard */; };
+		04DC616A28EF3E7E0020F2CD /* BuyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC616928EF3E7E0020F2CD /* BuyViewController.swift */; };
+		04DC616C28EF3EAA0020F2CD /* OfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC616B28EF3EAA0020F2CD /* OfferViewController.swift */; };
+		04DC616E28EF3EBC0020F2CD /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC616D28EF3EBC0020F2CD /* CartViewController.swift */; };
+		04DC617028EF62A30020F2CD /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC616F28EF62A30020F2CD /* MainTabBarViewController.swift */; };
+		04DC617228EF78240020F2CD /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC617128EF78240020F2CD /* UIView+Extension.swift */; };
+		04DCAE0928F1625000CD7B2F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DCAE0828F1625000CD7B2F /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		047D521E28EF7F9500760D20 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		04DC615128EF39070020F2CD /* RoadMap_Shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoadMap_Shop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DC615428EF39070020F2CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04DC615628EF39070020F2CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		04DC615828EF39070020F2CD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		04DC615828EF39070020F2CD /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		04DC615B28EF39070020F2CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04DC615D28EF390A0020F2CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04DC616028EF390A0020F2CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04DC616228EF390A0020F2CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04DC616928EF3E7E0020F2CD /* BuyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyViewController.swift; sourceTree = "<group>"; };
+		04DC616B28EF3EAA0020F2CD /* OfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferViewController.swift; sourceTree = "<group>"; };
+		04DC616D28EF3EBC0020F2CD /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		04DC616F28EF62A30020F2CD /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		04DC617128EF78240020F2CD /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		04DCAE0828F1625000CD7B2F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +72,14 @@
 			children = (
 				04DC615428EF39070020F2CD /* AppDelegate.swift */,
 				04DC615628EF39070020F2CD /* SceneDelegate.swift */,
-				04DC615828EF39070020F2CD /* ViewController.swift */,
+				04DC616928EF3E7E0020F2CD /* BuyViewController.swift */,
+				04DC616B28EF3EAA0020F2CD /* OfferViewController.swift */,
+				04DC615828EF39070020F2CD /* SearchViewController.swift */,
+				04DC616D28EF3EBC0020F2CD /* CartViewController.swift */,
+				04DCAE0828F1625000CD7B2F /* Constants.swift */,
+				047D521E28EF7F9500760D20 /* ProductViewController.swift */,
+				04DC617128EF78240020F2CD /* UIView+Extension.swift */,
+				04DC616F28EF62A30020F2CD /* MainTabBarViewController.swift */,
 				04DC615A28EF39070020F2CD /* Main.storyboard */,
 				04DC615D28EF390A0020F2CD /* Assets.xcassets */,
 				04DC615F28EF390A0020F2CD /* LaunchScreen.storyboard */,
@@ -160,7 +181,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04DC615928EF39070020F2CD /* ViewController.swift in Sources */,
+				04DC616E28EF3EBC0020F2CD /* CartViewController.swift in Sources */,
+				04DC616C28EF3EAA0020F2CD /* OfferViewController.swift in Sources */,
+				04DC617228EF78240020F2CD /* UIView+Extension.swift in Sources */,
+				04DC615928EF39070020F2CD /* SearchViewController.swift in Sources */,
+				04DC616A28EF3E7E0020F2CD /* BuyViewController.swift in Sources */,
+				04DCAE0928F1625000CD7B2F /* Constants.swift in Sources */,
+				04DC617028EF62A30020F2CD /* MainTabBarViewController.swift in Sources */,
+				047D521F28EF7F9500760D20 /* ProductViewController.swift in Sources */,
 				04DC615528EF39070020F2CD /* AppDelegate.swift in Sources */,
 				04DC615728EF39070020F2CD /* SceneDelegate.swift in Sources */,
 			);
