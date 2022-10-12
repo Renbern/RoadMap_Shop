@@ -38,6 +38,7 @@ final class Constants {
         static let deliveryLabelText = "Заказ сегодня в течение дня, доставка:"
         static let deliveryDateLabelText = "Чт, 25 Фев - Бесплатно"
         static let deliveryOptionsLabelText = "Варианты доставки для иемтоположения: 11253"
+        static let photoForProdileImage = "Photo"
     }
     
     /// Текст статусов доставки
@@ -90,6 +91,7 @@ final class Constants {
         static let recommend = "dot.square"
         static let chevroneRight = "chevron.right"
         static let appBadge = "app.badge"
+        static let defaultImage = "person.crop.circle"
     }
     
     /// Цвета элементов пользовательского интерфейса
@@ -101,5 +103,18 @@ final class Constants {
         static let blackForGradient = "myBlack"
         static let whiteForGradient = "myWhite"
         static let silverForGradient = "mySilver"
+    }
+    
+    enum TabBarItemText {
+        static let buyItemText = "Купить"
+        static let offerItemText = "Для вас"
+        static let searchItemText = "Поиск"
+        static let cartItemText = "Корзина"
+    }
+    enum TabBarItemImage {
+        static let buyItemImage = "laptopcomputer.and.iphone"
+        static let offerItemImage = "person.circle"
+        static let searchItemImage = "magnifyingglass"
+        static let cartItemImage = "bag"
     }
 }

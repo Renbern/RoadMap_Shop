@@ -195,7 +195,6 @@ final class OfferViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        view.backgroundColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteView)
     }
     
     // MARK: - Private methods
@@ -208,22 +207,28 @@ final class OfferViewController: UIViewController {
     
     private func saveToUserDefaults(image: Data) {
         let defaults = UserDefaults.standard
-        guard defaults.object(forKey: "Photo") != nil else {
-            defaults.setValue(image, forKey: "Photo")
+        guard defaults.object(forKey: Constants.TextForUIElements.photoForProdileImage) != nil else {
+            defaults.setValue(image, forKey: Constants.TextForUIElements.photoForProdileImage)
             return
         }
-        defaults.removeObject(forKey: "Photo")
-        defaults.setValue(image, forKey: "Photo")
+        defaults.removeObject(forKey: Constants.TextForUIElements.photoForProdileImage)
+        defaults.setValue(image, forKey: Constants.TextForUIElements.photoForProdileImage)
     }
     
     private func checkUserDefaults() -> UIImage? {
         let userDefaults = UserDefaults.standard
-        guard let dataImage = userDefaults.object(forKey: "Photo") as? Data else {
-            let image = UIImage(named: "caseBrownFront2")?.resizeImage(to: CGSize(width: 35, height: 35))
+        guard let dataImage = userDefaults.object(
+            forKey: Constants.TextForUIElements.photoForProdileImage
+        ) as? Data else {
+            let image = UIImage(
+                named: Constants.SystemImage.defaultImage)?.resizeImage(to: CGSize(width: 35, height: 35)
+                )
             return image
         }
         guard let image = UIImage(data: dataImage) else {
-            let image = UIImage(named: "caseBrownFront2")?.resizeImage(to: CGSize(width: 35, height: 35))
+            let image = UIImage(
+                named: Constants.SystemImage.defaultImage)?.resizeImage(to: CGSize(width: 35, height: 35)
+                )
             return image
         }
         return image
@@ -287,6 +292,7 @@ final class OfferViewController: UIViewController {
     }
     
     private func setupUI() {
+        view.backgroundColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteView)
         navigationController?.navigationBar.prefersLargeTitles = true
         title = Constants.TextForUIElements.forYouText
         

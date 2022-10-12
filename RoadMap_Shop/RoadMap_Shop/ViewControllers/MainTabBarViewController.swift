@@ -9,22 +9,6 @@ import UIKit
 
 /// Конфигурация таб бара
 final class MainTabBarViewController: UITabBarController {
-
-    // MARK: - Constants
-    private enum Constants {
-        enum TabBarItemText {
-            static let buyItemText = "Купить"
-            static let offerItemText = "Для вас"
-            static let searchItemText = "Поиск"
-            static let cartItemText = "Корзина"
-        }
-        enum TabBarItemImage {
-            static let buyItemImage = "laptopcomputer.and.iphone"
-            static let offerItemImage = "person.circle"
-            static let searchItemImage = "magnifyingglass"
-            static let cartItemImage = "bag"
-        }
-    }
     
     // MARK: - Private properties
     private let searchVC = SearchViewController()

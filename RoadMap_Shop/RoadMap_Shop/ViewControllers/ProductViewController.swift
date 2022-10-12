@@ -9,11 +9,9 @@ import UIKit
 import WebKit
 
 // Экран информации о продукте
-final class ProductViewController: UIViewController, WKNavigationDelegate {
+final class ProductViewController: UIViewController {
     
     // MARK: - Public properties
-    lazy var productImages: [String] = []
-    
     private var productScrollView = UIScrollView()
     
     lazy var productImageView = UIImageView()
@@ -38,8 +36,6 @@ final class ProductViewController: UIViewController, WKNavigationDelegate {
     var product: Product?
  
     // MARK: - Private properties
-    private let constants = Constants()
-    
     private let webView = ProductWebPageViewController()
     
     private let productPriceLabel: UILabel = {
@@ -139,7 +135,7 @@ final class ProductViewController: UIViewController, WKNavigationDelegate {
     private func configurateImageView() {
         guard let product = product else { return }
         var imageViewRect = CGRect(x: 0, y: 0, width: view.bounds.width, height: 190)
-        for imageName in product.productImages {
+        for imageName in product.productImageNames {
             let productImageView = newImageWithImage(paramImage: imageName, paramFrame: imageViewRect)
             productImageView.isUserInteractionEnabled = true
             productImageView.addGestureRecognizer(
@@ -260,4 +256,9 @@ final class ProductViewController: UIViewController, WKNavigationDelegate {
         webViewVC.product = product
         present(webViewVC, animated: true)
     }
+}
+
+// MARK: - WKNavigationDelegate
+extension ProductViewController: WKNavigationDelegate {
+    
 }

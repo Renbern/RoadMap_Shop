@@ -13,18 +13,18 @@ class ProductWebPageViewController: UIViewController, WKUIDelegate {
 
     // MARK: - Private properties
     private let webView = WKWebView()
-    
-    private var webViewToolBar = UIToolbar()
     private let backButtonItem = UIBarButtonItem(systemItem: .rewind)
     private let forwardButtonItem = UIBarButtonItem(systemItem: .fastForward)
     private let spacer = UIBarButtonItem(systemItem: .flexibleSpace)
-    private var shareButtonItem = UIBarButtonItem()
     private let refreshButtonItem = UIBarButtonItem(systemItem: .refresh)
+    private var shareButtonItem = UIBarButtonItem()
     private var progressView = UIProgressView(progressViewStyle: .default)
-    private lazy var progressViewButtonItem = UIBarButtonItem(customView: progressView)
-    var product: Product?
-    
+    private var webViewToolBar = UIToolbar()
+    private var progressViewButtonItem = UIBarButtonItem()
     private var observation: NSKeyValueObservation?
+    
+    // MARK: - Public properties
+    var product: Product?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -89,7 +89,7 @@ class ProductWebPageViewController: UIViewController, WKUIDelegate {
             target: self,
             action: nil
         )
-        
+        progressViewButtonItem.customView = progressView
         backButtonItem.action = #selector(goBackAction)
         forwardButtonItem.action = #selector(goForwardAction)
         refreshButtonItem.action = #selector(refreshAction)

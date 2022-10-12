@@ -81,29 +81,29 @@ final class SearchViewController: UIViewController {
     
     private var productViewFrame = 12
     private var tag = 0
-    private var product = [
+    private var products = [
         Product(
             productName: Constants.ProductText.caseBlackNameLabelText,
             productPrice: Constants.ProductPriceText.caseBlackPriceLabelText,
-            productImages: Constants.ProductImageName.blackCaseImageName,
+            productImageNames: Constants.ProductImageName.blackCaseImageName,
             productLink: Constants.ProductLink.caseBlackLink
         ),
         Product(
             productName: Constants.ProductText.caseBrownLabelText,
             productPrice: Constants.ProductPriceText.caseBrownPriceLabelText,
-            productImages: Constants.ProductImageName.brownCaseImageName,
+            productImageNames: Constants.ProductImageName.brownCaseImageName,
             productLink: Constants.ProductLink.caseBrownLink
         ),
         Product(
             productName: Constants.ProductText.iPhoneLabelText,
             productPrice: Constants.ProductPriceText.iPhonePriceLabelText,
-            productImages: Constants.ProductImageName.iPhoneImageName,
+            productImageNames: Constants.ProductImageName.iPhoneImageName,
             productLink: Constants.ProductLink.iPhoneLink
         ),
         Product(
             productName: Constants.ProductText.appleWatchStrapLabelText,
             productPrice: Constants.ProductPriceText.appleWatchStrapPriceLabelText,
-            productImages: Constants.ProductImageName.appleWatchStrapImageName,
+            productImageNames: Constants.ProductImageName.appleWatchStrapImageName,
             productLink: Constants.ProductLink.appleWatchStrapLink
         )
     ]
@@ -317,14 +317,14 @@ final class SearchViewController: UIViewController {
     @objc private func handleTap(sender: UIGestureRecognizer) {
         let productVC = ProductViewController()
         guard let tag = sender.view?.tag else { return }
-        productVC.product = product[tag]
+        productVC.product = products[tag]
         navigationController?.pushViewController(productVC, animated: true)
     }
     
     private func addView() {
-        for item in product {
+        for item in products {
             configurateProductView(
-                image: item.productImages.first ?? "",
+                image: item.productImageNames.first ?? "",
                 product: item.productName,
                 price: item.productPrice,
                 tag: tag

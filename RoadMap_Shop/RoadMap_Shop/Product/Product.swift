@@ -2,6 +2,6 @@
 struct Product {
     var productName: String
     var productPrice: String
-    var productImages: [String]
+    var productImageNames: [String]
     var productLink: String
 }
