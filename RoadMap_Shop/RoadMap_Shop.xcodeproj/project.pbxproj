@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0404A46A28F4B0B500A824BE /* ProductWebPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0404A46928F4B0B500A824BE /* ProductWebPageViewController.swift */; };
+		0404A46C28F4CBC900A824BE /* notes.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0404A46B28F4CBC900A824BE /* notes.pdf */; };
+		0404A46E28F4CF3700A824BE /* PdfReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0404A46D28F4CF3700A824BE /* PdfReadViewController.swift */; };
+		0404A47028F4D24900A824BE /* usov.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0404A46F28F4D24900A824BE /* usov.pdf */; };
 		047D521F28EF7F9500760D20 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047D521E28EF7F9500760D20 /* ProductViewController.swift */; };
+		048248C028F5C76C00CCF1F5 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048248BF28F5C76C00CCF1F5 /* Product.swift */; };
 		04DC615528EF39070020F2CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC615428EF39070020F2CD /* AppDelegate.swift */; };
 		04DC615728EF39070020F2CD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC615628EF39070020F2CD /* SceneDelegate.swift */; };
 		04DC615928EF39070020F2CD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DC615828EF39070020F2CD /* SearchViewController.swift */; };
@@ -23,7 +28,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0404A46928F4B0B500A824BE /* ProductWebPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductWebPageViewController.swift; sourceTree = "<group>"; };
+		0404A46B28F4CBC900A824BE /* notes.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = notes.pdf; sourceTree = "<group>"; };
+		0404A46D28F4CF3700A824BE /* PdfReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfReadViewController.swift; sourceTree = "<group>"; };
+		0404A46F28F4D24900A824BE /* usov.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = usov.pdf; sourceTree = "<group>"; };
 		047D521E28EF7F9500760D20 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		048248BF28F5C76C00CCF1F5 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		04DC615128EF39070020F2CD /* RoadMap_Shop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoadMap_Shop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04DC615428EF39070020F2CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04DC615628EF39070020F2CD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,12 +88,17 @@
 				04DC616D28EF3EBC0020F2CD /* CartViewController.swift */,
 				04DCAE0828F1625000CD7B2F /* Constants.swift */,
 				047D521E28EF7F9500760D20 /* ProductViewController.swift */,
+				048248BF28F5C76C00CCF1F5 /* Product.swift */,
+				0404A46928F4B0B500A824BE /* ProductWebPageViewController.swift */,
+				0404A46D28F4CF3700A824BE /* PdfReadViewController.swift */,
 				04DC617128EF78240020F2CD /* UIView+Extension.swift */,
 				04DC616F28EF62A30020F2CD /* MainTabBarViewController.swift */,
 				04DC615A28EF39070020F2CD /* Main.storyboard */,
 				04DC615D28EF390A0020F2CD /* Assets.xcassets */,
 				04DC615F28EF390A0020F2CD /* LaunchScreen.storyboard */,
 				04DC616228EF390A0020F2CD /* Info.plist */,
+				0404A46B28F4CBC900A824BE /* notes.pdf */,
+				0404A46F28F4D24900A824BE /* usov.pdf */,
 			);
 			path = RoadMap_Shop;
 			sourceTree = "<group>";
@@ -147,9 +162,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0404A47028F4D24900A824BE /* usov.pdf in Resources */,
 				04DC616128EF390A0020F2CD /* LaunchScreen.storyboard in Resources */,
 				04DC615E28EF390A0020F2CD /* Assets.xcassets in Resources */,
 				04DC615C28EF39070020F2CD /* Main.storyboard in Resources */,
+				0404A46C28F4CBC900A824BE /* notes.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,11 +203,14 @@
 				04DC617228EF78240020F2CD /* UIView+Extension.swift in Sources */,
 				04DC615928EF39070020F2CD /* SearchViewController.swift in Sources */,
 				04DC616A28EF3E7E0020F2CD /* BuyViewController.swift in Sources */,
+				0404A46A28F4B0B500A824BE /* ProductWebPageViewController.swift in Sources */,
 				04DCAE0928F1625000CD7B2F /* Constants.swift in Sources */,
+				0404A46E28F4CF3700A824BE /* PdfReadViewController.swift in Sources */,
 				04DC617028EF62A30020F2CD /* MainTabBarViewController.swift in Sources */,
 				047D521F28EF7F9500760D20 /* ProductViewController.swift in Sources */,
 				04DC615528EF39070020F2CD /* AppDelegate.swift in Sources */,
 				04DC615728EF39070020F2CD /* SceneDelegate.swift in Sources */,
+				048248C028F5C76C00CCF1F5 /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

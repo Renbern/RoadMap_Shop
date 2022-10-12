@@ -6,17 +6,15 @@
 //
 
 import UIKit
+import WebKit
+
 // Экран информации о продукте
-final class ProductViewController: UIViewController {
+final class ProductViewController: UIViewController, WKNavigationDelegate {
     
     // MARK: - Public properties
     lazy var productImages: [String] = []
     
     private var productScrollView = UIScrollView()
-    
-    lazy var firstImage = UIImage()
-    lazy var secondImage = UIImage()
-    lazy var thirdImage = UIImage()
     
     lazy var productImageView = UIImageView()
     lazy var productNameLabel = UILabel()
@@ -28,12 +26,24 @@ final class ProductViewController: UIViewController {
         return view
     }()
     
+    private lazy var deliveryOptionsLabel: UILabel = {
+       let label = UILabel()
+        label.text = Constants.TextForUIElements.deliveryOptionsLabelText
+        label.textColor = .systemBlue
+        label.font = .systemFont(ofSize: 10)
+        label.frame = CGRect(x: 40, y: 735, width: 300, height: 25)
+        return label
+    }()
+    
+    var product: Product?
+ 
     // MARK: - Private properties
     private let constants = Constants()
     
+    private let webView = ProductWebPageViewController()
+    
     private let productPriceLabel: UILabel = {
        let price = UILabel(frame: CGRect(x: 150, y: 175, width: 200, height: 30))
-        price.text = Constants.ProductPriceText.appleWatchStrapPriceText
         price.font = .systemFont(ofSize: 15, weight: .semibold)
         price.textColor = .gray
         return price
@@ -119,15 +129,6 @@ final class ProductViewController: UIViewController {
         return label
     }()
     
-    private let deliveryOptionsLabel: UILabel = {
-       let label = UILabel()
-        label.text = Constants.TextForUIElements.deliveryOptionsLabelText
-        label.textColor = .systemBlue
-        label.font = .systemFont(ofSize: 10)
-        label.frame = CGRect(x: 40, y: 735, width: 300, height: 25)
-        return label
-    }()
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,10 +136,63 @@ final class ProductViewController: UIViewController {
     }
 
     // MARK: - Private methods
+    private func configurateImageView() {
+        guard let product = product else { return }
+        var imageViewRect = CGRect(x: 0, y: 0, width: view.bounds.width, height: 190)
+        for imageName in product.productImages {
+            let productImageView = newImageWithImage(paramImage: imageName, paramFrame: imageViewRect)
+            productImageView.isUserInteractionEnabled = true
+            productImageView.addGestureRecognizer(
+                UITapGestureRecognizer(
+                    target: self,
+                    action: #selector(showProductWebPage)
+                )
+            )
+            productScrollView.addSubview(productImageView)
+            imageViewRect.origin.x += imageViewRect.size.width
+        }
+    }
+    
+    private func newImageWithImage(paramImage: String, paramFrame: CGRect) -> UIImageView {
+        let result = UIImageView(frame: paramFrame)
+        result.contentMode = .scaleAspectFit
+        result.image = UIImage(named: paramImage)
+        return result
+    }
+    
+    private func setupUI() {
+        view.backgroundColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteView)
+        configurateProductScrollView()
+        configurateImageView()
+        view.addSubview(productNameLabel)
+        view.addSubview(productPriceLabel)
+        view.addSubview(productColorNameLabel)
+        view.addSubview(firstColorButton)
+        view.addSubview(secondColorButton)
+        view.addSubview(addToCardButton)
+        view.addSubview(boxImageView)
+        view.addSubview(deliveryLabel)
+        view.addSubview(deliveryDateLabel)
+        view.addSubview(deliveryOptionsLabel)
+        view.addSubview(connectView)
+        connectView.addSubview(connectImageView)
+        connectView.addSubview(connectLabel)
+        connectView.addSubview(connectDeviceLabel)
+        configurateProductNameLabel()
+        confugirateNavigationBar()
+        configurateProductColorNameLabel()
+        setGradientBackgroundForFirstButton()
+        setGradientBackgroundForSecondButton()
+        
+        productPriceLabel.text = product?.productPrice
+        productNameLabel.text = product?.productName
+    }
+    
     private func configurateProductNameLabel() {
         productNameLabel.frame = CGRect(x: 35, y: 50, width: 350, height: 200)
         productNameLabel.font = .systemFont(ofSize: 15, weight: .bold)
         productNameLabel.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
+        productNameLabel.text = product?.productName
         productNameLabel.numberOfLines = 0
     }
     
@@ -156,70 +210,30 @@ final class ProductViewController: UIViewController {
         shareButtonItem.image = UIImage(systemName: Constants.SystemImage.share)
         let favoriteButtonItem = UIBarButtonItem()
         favoriteButtonItem.image = UIImage(systemName: Constants.SystemImage.heart)
-        navigationItem.rightBarButtonItems = [favoriteButtonItem, shareButtonItem]
+        let documentButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "doc.text"),
+            style: .done,
+            target: self,
+            action: #selector(readPdfAction)
+        )
+        navigationItem.rightBarButtonItems = [favoriteButtonItem, shareButtonItem, documentButtonItem]
     }
     
     private func configurateProductScrollView() {
-        let scrollViewRect = view.bounds
+        let scrollViewRect = CGRect(x: 0, y: 230, width: view.bounds.width, height: 200)
         
         productScrollView = UIScrollView(frame: scrollViewRect)
         productScrollView.isPagingEnabled = true
         productScrollView.flashScrollIndicators()
         productScrollView.indicatorStyle = .white
-        productScrollView.contentSize = CGSize(
-            width: CGFloat(scrollViewRect.size.width) * CGFloat(productImages.count),
-            height: 200
-        )
-        productScrollView.frame = CGRect(x: 0, y: 230, width: Int(scrollViewRect.size.width), height: 200)
+        productScrollView.contentSize = CGSize(width: scrollViewRect.size.width * 3, height: 200)
         view.addSubview(productScrollView)
-        
-        var imageViewRect = productScrollView.bounds
-        guard productImages.count > 2 else {
-            if let image = UIImage(named: productImages.first ?? "") {
-                let firstImageView = newImageWithImage(
-                    paramImage: image,
-                    paramFrame: imageViewRect)
-                productScrollView.addSubview(firstImageView)
-            }
-            
-            if let image = UIImage(named: productImages[1]) {
-                imageViewRect.origin.x += imageViewRect.size.width
-                let secondImageView = newImageWithImage(
-                    paramImage: image,
-                    paramFrame: imageViewRect)
-                productScrollView.addSubview(secondImageView)
-            }
-            return
-        }
-        if let image = UIImage(named: productImages.first ?? "") {
-            let firstImageView = newImageWithImage(
-                paramImage: image,
-                paramFrame: imageViewRect)
-            productScrollView.addSubview(firstImageView)
-        }
-        
-        if let image = UIImage(named: productImages[1] ) {
-            imageViewRect.origin.x += imageViewRect.size.width
-            let secondImageView = newImageWithImage(
-                paramImage: image,
-                paramFrame: imageViewRect)
-            productScrollView.addSubview(secondImageView)
-        }
-        
-        if let image = UIImage(named: productImages[2] ) {
-            imageViewRect.origin.x += imageViewRect.size.width
-            let thirdImageView = newImageWithImage(
-                paramImage: image,
-                paramFrame: imageViewRect)
-            productScrollView.addSubview(thirdImageView)
-        }
     }
     
-    private func newImageWithImage(paramImage: UIImage, paramFrame: CGRect) -> UIImageView {
-        let result = UIImageView(frame: paramFrame)
-        result.contentMode = .scaleAspectFit
-        result.image = paramImage
-        return result
+    @objc private func readPdfAction() {
+        let pdfVC = PdfReadViewController()
+        pdfVC.modalPresentationStyle = .popover
+        present(pdfVC, animated: true)
     }
     
     private func setGradientBackgroundForSecondButton() {
@@ -240,29 +254,10 @@ final class ProductViewController: UIViewController {
         firstColorButton.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    private func setupUI() {
-        view.backgroundColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteView)
-        view.addSubview(productImageView)
-        view.addSubview(productNameLabel)
-        view.addSubview(productPriceLabel)
-        view.addSubview(productColorNameLabel)
-        view.addSubview(firstColorButton)
-        view.addSubview(secondColorButton)
-        view.addSubview(addToCardButton)
-        view.addSubview(boxImageView)
-        view.addSubview(deliveryLabel)
-        view.addSubview(deliveryDateLabel)
-        view.addSubview(deliveryOptionsLabel)
-        view.addSubview(connectView)
-        connectView.addSubview(connectImageView)
-        connectView.addSubview(connectLabel)
-        connectView.addSubview(connectDeviceLabel)
-        configurateProductNameLabel()
-        confugirateNavigationBar()
-        configurateProductScrollView()
-        configurateProductColorNameLabel()
-        setGradientBackgroundForFirstButton()
-        setGradientBackgroundForSecondButton()
+    @objc private func showProductWebPage(_ sender: UIGestureRecognizer) {
+        let webViewVC = ProductWebPageViewController()
+        guard let product = product else { return }
+        webViewVC.product = product
+        present(webViewVC, animated: true)
     }
-    
 }

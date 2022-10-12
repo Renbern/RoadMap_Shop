@@ -79,6 +79,35 @@ final class SearchViewController: UIViewController {
         return iPhone
     }()
     
+    private var productViewFrame = 12
+    private var tag = 0
+    private var product = [
+        Product(
+            productName: Constants.ProductText.caseBlackNameLabelText,
+            productPrice: Constants.ProductPriceText.caseBlackPriceLabelText,
+            productImages: Constants.ProductImageName.blackCaseImageName,
+            productLink: Constants.ProductLink.caseBlackLink
+        ),
+        Product(
+            productName: Constants.ProductText.caseBrownLabelText,
+            productPrice: Constants.ProductPriceText.caseBrownPriceLabelText,
+            productImages: Constants.ProductImageName.brownCaseImageName,
+            productLink: Constants.ProductLink.caseBrownLink
+        ),
+        Product(
+            productName: Constants.ProductText.iPhoneLabelText,
+            productPrice: Constants.ProductPriceText.iPhonePriceLabelText,
+            productImages: Constants.ProductImageName.iPhoneImageName,
+            productLink: Constants.ProductLink.iPhoneLink
+        ),
+        Product(
+            productName: Constants.ProductText.appleWatchStrapLabelText,
+            productPrice: Constants.ProductPriceText.appleWatchStrapPriceLabelText,
+            productImages: Constants.ProductImageName.appleWatchStrapImageName,
+            productLink: Constants.ProductLink.appleWatchStrapLink
+        )
+    ]
+    
     // MARK: - Private properties
     private let constants = Constants()
     
@@ -165,7 +194,6 @@ final class SearchViewController: UIViewController {
     
     private let iPhoneImageView: UIImageView = {
         let iPhoneImage = UIImageView()
-        iPhoneImage.image = UIImage(named: Constants.ProductImageName.iPhone[0])
         iPhoneImage.frame = CGRect(x: 15, y: 7, width: 110, height: 110)
         iPhoneImage.contentMode = .scaleAspectFit
         return iPhoneImage
@@ -286,36 +314,57 @@ final class SearchViewController: UIViewController {
     }
     
     // MARK: - Private methods
-    @objc private func handleTap(_ sender: UIGestureRecognizer) {
+    @objc private func handleTap(sender: UIGestureRecognizer) {
         let productVC = ProductViewController()
-        switch sender.view?.tag {
-        case 0:
-            productVC.productImages = Constants.ProductImageName.blackCaseImageName
-            productVC.productNameLabel.text = Constants.ProductText.caseBlackNameLabelText
-            productVC.productColorNameLabel.text = Constants.ProductText.caseBlackNameLabelText
-        case 1:
-            productVC.productImages = Constants.ProductImageName.appleWatchStrapImageName
-            productVC.productNameLabel.text = Constants.ProductText.appleWatchStrapLabelText
-        case 2:
-            productVC.productImages = Constants.ProductImageName.brownCaseImageName
-            productVC.productNameLabel.text = Constants.ProductText.caseBrownLabelText
-        case 3:
-            productVC.productImages = Constants.ProductImageName.iPhone
-            productVC.productNameLabel.text = Constants.ProductText.iPhoneLabelText
-        default:
-            print("Error")
-        }
-        
-        let backButtonItem = UIBarButtonItem()
-        backButtonItem.title = Constants.TextForUIElements.searchLabelText
-        navigationItem.backBarButtonItem = backButtonItem
+        guard let tag = sender.view?.tag else { return }
+        productVC.product = product[tag]
         navigationController?.pushViewController(productVC, animated: true)
     }
+    
+    private func addView() {
+        for item in product {
+            configurateProductView(
+                image: item.productImages.first ?? "",
+                product: item.productName,
+                price: item.productPrice,
+                tag: tag
+            )
+            tag += 1
+        }
+    }
+    
+    private func configurateProductView(image: String, product: String, price: String, tag: Int) {
+             let productView = UIView()
+            productView.backgroundColor = UIColor(named: Constants.MyColorForUIElements.grayForProductView)
+             productView.frame = CGRect(x: productViewFrame, y: 0, width: 150, height: 190)
+             productView.layer.cornerRadius = 12
+
+             let productName = UILabel()
+            productName.text = product
+            productName.textColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteForLabel)
+            productName.numberOfLines = 3
+        productName.font = .systemFont(ofSize: 12, weight: .semibold)
+            productName.frame = CGRect(x: 13, y: 120, width: 130, height: 80)
+
+             let productImageView = UIImageView()
+             let productImage = UIImage(named: image)
+             productImageView.contentMode = .scaleAspectFit
+             productImageView.image = productImage
+             productImageView.frame = CGRect(x: 23, y: 30, width: 100, height: 100)
+
+             productView.addSubview(productImageView)
+             productView.addSubview(productName)
+             productView.tag = tag
+             productView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
+             productViewFrame += 170
+             productsScrollView.addSubview(productView)
+         }
     
     private func setupUI() {
         view.backgroundColor = UIColor(named: Constants.MyColorForUIElements.blackWhiteView)
         navigationController?.navigationBar.prefersLargeTitles = true
         title = Constants.TextForUIElements.searchLabelText
+        addView()
         view.addSubview(searchBar)
         view.addSubview(recentlyViewedProductLabel)
         view.addSubview(clearButton)
@@ -346,19 +395,5 @@ final class SearchViewController: UIViewController {
         compareModelsView.setUnderLine()
         
         view.addSubview(productsScrollView)
-        blackCaseView.addSubview(caseBlackImageView)
-        blackCaseView.addSubview(caseBlackNameLabel)
-        appleWatchStrapView.addSubview(appleWatchStrapImageView)
-        appleWatchStrapView.addSubview(appleWatchStrapNameLabel)
-        caseBrownView.addSubview(caseBrownImageView)
-        caseBrownView.addSubview(caseBrownNameLabel)
-        iPhoneView.addSubview(iPhoneImageView)
-        iPhoneView.addSubview(iPhoneNameLabel)
-        
-        productsScrollView.addSubview(blackCaseView)
-        productsScrollView.addSubview(appleWatchStrapView)
-        productsScrollView.addSubview(caseBrownView)
-        productsScrollView.addSubview(iPhoneView)
-        
     }
 }

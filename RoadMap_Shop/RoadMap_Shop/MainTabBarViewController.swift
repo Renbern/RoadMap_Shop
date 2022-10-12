@@ -60,8 +60,10 @@ final class MainTabBarViewController: UITabBarController {
     
     // MARK: - Private methods
     private func setupUI() {
-        let navigationController = UINavigationController(rootViewController: searchVC)
-        viewControllers = [buyVC, offerVC, navigationController, cartVC]
+        let searchNavigationController = UINavigationController(rootViewController: searchVC)
+        let offerNavigationController = UINavigationController(rootViewController: offerVC)
+        
+        viewControllers = [buyVC, offerNavigationController, searchNavigationController, cartVC]
         buyVC.tabBarItem = buyTabBarItem
         offerVC.tabBarItem = offerTabBarItem
         searchVC.tabBarItem = searchTabBarItem

@@ -15,6 +15,7 @@ final class Constants {
     /// Текст для элементов пользовательского интерфейса
     enum TextForUIElements {
         static let searchLabelText = "Поиск"
+        static let forYouText = "Для вас"
         static let searchTextFieldPlaceholder = "Поиск по продуктам и магазинам"
         static let recentlyViewedProductLabelText = "Недавно просмотренные"
         static let clearButtonText = "Очистить"
@@ -22,6 +23,14 @@ final class Constants {
         static let airPodsRequestLabelText = "AirPods"
         static let appleCareRequestLabelText = "Apple Care"
         static let beatsRequestLabelText = "Beats"
+        static let whatsNew = "Вот что нового"
+        static let yourDevices = "Ваши устройства"
+        static let showAll = "Показать все"
+        static let recomendedToYouLabel = "Рекомендуется вам"
+        static let recommendTitle = "Получайте новости о своем заказе в режиме реального времени"
+        static let recommendText = "Включите уведомления, чтобы получать новости о своем заказе"
+        static let yourOrderSent = "Ваш заказ отправлен"
+        static let orderAndDeliveryInfo = "1 товар, доставка завтра"
         static let addToCartButtonText = "Добавить в корзину"
         static let compareModelsLabelText = "Сравните модели iPhone"
         static let connectLabelText = "Совместимо с "
@@ -29,6 +38,13 @@ final class Constants {
         static let deliveryLabelText = "Заказ сегодня в течение дня, доставка:"
         static let deliveryDateLabelText = "Чт, 25 Фев - Бесплатно"
         static let deliveryOptionsLabelText = "Варианты доставки для иемтоположения: 11253"
+    }
+    
+    /// Текст статусов доставки
+    enum ProgressViewStatusText {
+        static let processed = "Обрабатывается"
+        static let sent = "Отправлено"
+        static let delivered = "Доставлено"
     }
     
     /// Названия продуктов
@@ -41,16 +57,27 @@ final class Constants {
     
     ///  Названия изображэений продуктов
     enum ProductImageName {
-        static let appleWatchStrapImageName = ["appleWatchStrap1", "appleWatchStrap2"]
-        static let airPodsImageName = ["airPods"]
+        static let appleWatchStrapImageName = ["appleWatchStrap1", "appleWatchStrap2", "appleWatchStrap3"]
         static let blackCaseImageName = ["caseBlackBack", "caseBlackFront", "caseBlackSide"]
         static let brownCaseImageName = ["caseBrownBack", "caseBrownFront1", "caseBrownFront2"]
-        static let iPhone = ["iPhone1", "iPhone2"]
+        static let iPhoneImageName = ["iPhone1", "iPhone2", "iPhone3"]
+        static let airPodsUmageName = "airPods"
     }
     
     /// Цены продутов
     enum ProductPriceText {
-        static let appleWatchStrapPriceText = "3 999 00 руб."
+        static let caseBlackPriceLabelText = "4 999 00 руб."
+        static let appleWatchStrapPriceLabelText = "4 000 00 руб."
+        static let caseBrownPriceLabelText = "5 350 00 руб."
+        static let iPhonePriceLabelText = "89 990 00 руб."
+    }
+    
+    /// Ссылки на странички продуктов
+    enum ProductLink {
+        static let caseBlackLink = "https://re-store.ru/catalog/PA15OCBL5448/"
+        static let appleWatchStrapLink = "https://re-store.ru/catalog/MJ4V3ZM-A/"
+        static let caseBrownLink = "https://re-store.ru/catalog/PA15DACH5449/"
+        static let iPhoneLink = "https://re-store.ru/catalog/10113256BLU/"
     }
     
     /// Названия изображений barItem'ов
@@ -60,6 +87,9 @@ final class Constants {
         static let connectCheck = "checkmark.circle.fill"
         static let deliveryBox = "shippingbox"
         static let searchGlass = "magnifyingglass"
+        static let recommend = "dot.square"
+        static let chevroneRight = "chevron.right"
+        static let appBadge = "app.badge"
     }
     
     /// Цвета элементов пользовательского интерфейса
