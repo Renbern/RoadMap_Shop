@@ -19,6 +19,5 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let tabBarViewController = MainTabBarViewController()
         window?.rootViewController = tabBarViewController
-    
     }
 }
