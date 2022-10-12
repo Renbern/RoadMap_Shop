@@ -199,7 +199,7 @@ final class OfferViewController: UIViewController {
     }
     
     // MARK: - Private methods
-    @objc private func showImagePickerController() {
+    @objc private func showImagePickerControllerAction() {
         let imagePickerView = UIImagePickerController()
         imagePickerView.delegate = self
         imagePickerView.allowsEditing = true
@@ -247,7 +247,7 @@ final class OfferViewController: UIViewController {
         photoImageView.addGestureRecognizer(
             UITapGestureRecognizer(
                 target: self,
-                action: #selector(showImagePickerController)
+                action: #selector(showImagePickerControllerAction)
             )
         )
         photoImageView.image = checkUserDefaults()
