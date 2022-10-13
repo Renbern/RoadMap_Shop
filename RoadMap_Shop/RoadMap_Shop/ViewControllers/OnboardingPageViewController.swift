@@ -17,11 +17,10 @@ class OnboardingPageViewController: UIPageViewController {
     private let secondPage = UIImage(named: Constants.OnboardingImage.secondImage)
     private let thirdPage = UIImage(named: Constants.OnboardingImage.thirdImage)
     private let proxy = UIPageControl.appearance()
-    private var isOnboardingSeen: Bool?
 
     private lazy var skipButton: UIButton = {
         let button  = UIButton(type: .system)
-        button.setTitle("SKIP", for: .normal)
+        button.setTitle(Constants.OnboardingButtonText.skip, for: .normal)
         button.setTitleColor(.gray, for: .normal)
         button.addTarget(self, action: #selector(showMainAppAction), for: .touchUpInside)
         button.frame = CGRect(x: 30, y: 790, width: 100, height: 30)
@@ -30,7 +29,7 @@ class OnboardingPageViewController: UIPageViewController {
     
     private lazy var nextButton: UIButton = {
         let button  = UIButton(type: .system)
-        button.setTitle("NEXT", for: .normal)
+        button.setTitle(Constants.OnboardingButtonText.next, for: .normal)
         button.addTarget(self, action: #selector(moveToNextPage), for: .touchUpInside)
         button.frame = CGRect(x: 280, y: 790, width: 100, height: 30)
         return button
@@ -38,7 +37,7 @@ class OnboardingPageViewController: UIPageViewController {
     
     private lazy var getStartedButton: UIButton = {
         let button  = UIButton(type: .system)
-        button.setTitle("GET STARTED", for: .normal)
+        button.setTitle(Constants.OnboardingButtonText.getStarted, for: .normal)
         button.addTarget(self, action: #selector(showMainAppAction), for: .touchUpInside)
         button.frame = CGRect(x: 150, y: 790, width: 100, height: 30)
         button.backgroundColor = .white
@@ -75,30 +74,6 @@ class OnboardingPageViewController: UIPageViewController {
     }
     
     // MARK: - Private methods
-    @objc private func showMainAppAction() {
-        isOnboardingSeen = StorageManager.isOnboardingSeen()
-        let defaults = UserDefaults.standard
-        defaults.set(true, forKey: "onboarding")
-        let tabBarVC = MainTabBarViewController()
-        tabBarVC.modalPresentationStyle = .fullScreen
-        present(tabBarVC, animated: true)
-    }
-    
-    @objc private func moveToNextPage() {
-        guard let currentViewController = viewControllers?.first,
-                 let nextViewController = dataSource?.pageViewController(
-                    self,
-                    viewControllerAfter: currentViewController
-                 ) else { return }
-             if nextViewController == onboardingViewControllers.last {
-                 skipButton.isHidden = true
-                 nextButton.isHidden = true
-                 getStartedButton.isHidden = false
-                 findPageControl(isHidden: true)
-             }
-             setViewControllers([nextViewController], direction: .forward, animated: true)
-         }
-    
     private func configuratePageControl() {
         proxy.pageIndicatorTintColor = .gray
         proxy.currentPageIndicatorTintColor = .systemBlue
@@ -116,18 +91,18 @@ class OnboardingPageViewController: UIPageViewController {
     private func setupUI() {
         guard let firstImage = firstPage, let secondImage = secondPage, let thirdImage = thirdPage else { return }
         let first = OnboardingHelper(
-            title: "Онлайн-магазин re:STORE",
-            text: "Лучшие продукты по лучшим ценам!",
+            title: Constants.OnboardingText.firstTitle,
+            text: Constants.OnboardingText.firstText,
             image: firstImage
         )
         let second = OnboardingHelper(
-            title: "Регулярные скидки постоянным клиентам!",
-            text: "Только в нашем онлайн-магазине скидки увеличиваются от количества заказов",
+            title: Constants.OnboardingText.secondTitle,
+            text: Constants.OnboardingText.secondText,
             image: secondImage
         )
         let third = OnboardingHelper(
-            title: "Покупка в ОДИН клик!",
-            text: "Удобынй интерфейс мобильного приложения позволяет вам делать покупки всего в один клик!",
+            title: Constants.OnboardingText.thirdTitle,
+            text: Constants.OnboardingText.thirdText,
             image: thirdImage
         )
         pages.append(first)
@@ -149,6 +124,29 @@ class OnboardingPageViewController: UIPageViewController {
             findPageControl(isHidden: false)
         }
     }
+    
+    @objc private func showMainAppAction() {
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: Constants.OnboardingText.userDefaultsKey)
+        let tabBarVC = MainTabBarViewController()
+        tabBarVC.modalPresentationStyle = .fullScreen
+        present(tabBarVC, animated: true)
+    }
+    
+    @objc private func moveToNextPage() {
+        guard let currentViewController = viewControllers?.first,
+                 let nextViewController = dataSource?.pageViewController(
+                    self,
+                    viewControllerAfter: currentViewController
+                 ) else { return }
+             if nextViewController == onboardingViewControllers.last {
+                 skipButton.isHidden = true
+                 nextButton.isHidden = true
+                 getStartedButton.isHidden = false
+                 findPageControl(isHidden: true)
+             }
+             setViewControllers([nextViewController], direction: .forward, animated: true)
+         }
 }
 
 // MARK: - UIPageViewControllerDelegate
