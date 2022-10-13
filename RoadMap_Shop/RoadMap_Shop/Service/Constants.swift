@@ -117,4 +117,10 @@ final class Constants {
         static let searchItemImage = "magnifyingglass"
         static let cartItemImage = "bag"
     }
+    
+    enum OnboardingImage {
+        static let firstImage = "page1"
+        static let secondImage = "page2"
+        static let thirdImage = "page3"
+    }
 }

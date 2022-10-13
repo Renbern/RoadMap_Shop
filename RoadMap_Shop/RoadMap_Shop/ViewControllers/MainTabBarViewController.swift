@@ -35,11 +35,19 @@ final class MainTabBarViewController: UITabBarController {
         image: UIImage(systemName: Constants.TabBarItemImage.cartItemImage),
         tag: 3
     )
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
     // MARK: - Private methods
@@ -49,9 +57,12 @@ final class MainTabBarViewController: UITabBarController {
         
         viewControllers = [buyVC, offerNavigationController, searchNavigationController, cartVC]
         buyVC.tabBarItem = buyTabBarItem
-        offerVC.tabBarItem = offerTabBarItem
-        searchVC.tabBarItem = searchTabBarItem
+        offerNavigationController.tabBarItem = offerTabBarItem
+        searchNavigationController.tabBarItem = searchTabBarItem
         cartVC.tabBarItem = cartTabBarItem
         tabBar.backgroundColor = .systemGray6
+        let onboardingVC = OnboardingPageViewController()
+        onboardingVC.modalPresentationStyle = .fullScreen
+        present(onboardingVC, animated: true)
     }
 }
