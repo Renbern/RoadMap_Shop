@@ -8,7 +8,7 @@
 import UIKit
 
 /// Конфигурация онбординга
-class OnboardingViewController: UIViewController {
+final class OnboardingViewController: UIViewController {
     
     // MARK: Private properties
     private lazy var currentImage: UIImageView = {
@@ -19,7 +19,7 @@ class OnboardingViewController: UIViewController {
         return image
     }()
     
-    lazy var subview: [UIView] = [currentImage, pageTitleLabel, pageTextLabel]
+    private lazy var subview: [UIView] = [currentImage, pageTitleLabel, pageTextLabel]
     
     private let pageTitleLabel: UILabel = {
         let label = UILabel()
@@ -45,16 +45,11 @@ class OnboardingViewController: UIViewController {
         return label
     }()
     
-    // MARK: - Private methods
-    @objc private func showMainAppAction() {
-        dismiss(animated: true)
-    }
-    
     // MARK: - Init
     init(pageWith: OnboardingHelper) {
         super.init(nibName: nil, bundle: nil)
         edgesForExtendedLayout = []
-        currentImage.image = pageWith.image
+        currentImage.image = pageWith.imageName
         currentImage.contentMode = .scaleAspectFill
         pageTitleLabel.text = pageWith.title
         pageTextLabel.text = pageWith.text
@@ -66,26 +61,44 @@ class OnboardingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Lifecycle
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        UILabel.animate(withDuration: 0.5) {
-            self.pageTitleLabel.alpha = 1
-            self.pageTextLabel.alpha = 1
+    // MARK: - Private methods
+    @objc private func showMainAppAction() {
+        dismiss(animated: true)
+    }
+    
+    private func labelAnimation() {
+        if pageTitleLabel.alpha == 0,
+           pageTextLabel.alpha == 0 {
+            UILabel.animate(withDuration: 2.5) {
+                self.pageTitleLabel.alpha = 1
+                self.pageTextLabel.alpha = 1
+            }
+        } else {
+            UILabel.animate(withDuration: 2.5) {
+                self.pageTitleLabel.alpha = 0
+                self.pageTextLabel.alpha = 0
+            }
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private func setInitialLabelsAlpha() {
         pageTitleLabel.alpha = 0
         pageTextLabel.alpha = 0
     }
     
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setInitialLabelsAlpha()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        labelAnimation()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UILabel.animate(withDuration: 0.3) {
-            self.pageTitleLabel.alpha = 0
-            self.pageTextLabel.alpha = 0
-        }
+        labelAnimation()
     }
 }

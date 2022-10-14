@@ -111,7 +111,6 @@
 				0404A46D28F4CF3700A824BE /* PdfReadViewController.swift */,
 				04DC616F28EF62A30020F2CD /* MainTabBarViewController.swift */,
 				04DEAF0628F7225C00974AC2 /* OnboardingViewController.swift */,
-				04DEAF0A28F73AF700974AC2 /* OnboardingHelper.swift */,
 				04DEAF0C28F73B9500974AC2 /* OnboardingPageViewController.swift */,
 			);
 			path = ViewControllers;
@@ -129,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				04DCAE0828F1625000CD7B2F /* Constants.swift */,
+				04DEAF0A28F73AF700974AC2 /* OnboardingHelper.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";

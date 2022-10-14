@@ -8,7 +8,7 @@
 import UIKit
 
 /// Конфигурация пейдж контроллера
-class OnboardingPageViewController: UIPageViewController {
+final class OnboardingPageViewController: UIPageViewController {
 
     // MARK: - Private properties
     private var pages: [OnboardingHelper] = []
@@ -30,7 +30,7 @@ class OnboardingPageViewController: UIPageViewController {
     private lazy var nextButton: UIButton = {
         let button  = UIButton(type: .system)
         button.setTitle(Constants.OnboardingButtonText.next, for: .normal)
-        button.addTarget(self, action: #selector(moveToNextPage), for: .touchUpInside)
+        button.addTarget(self, action: #selector(moveToNextPageAction), for: .touchUpInside)
         button.frame = CGRect(x: 280, y: 790, width: 100, height: 30)
         return button
     }()
@@ -60,7 +60,8 @@ class OnboardingPageViewController: UIPageViewController {
         view.backgroundColor = .white
         self.dataSource = self
         self.delegate = self
-        setViewControllers([onboardingViewControllers[0]], direction: .forward, animated: true)
+        guard let firstVC = onboardingViewControllers.first else { return }
+        setViewControllers([firstVC], direction: .forward, animated: true)
     }
     
     required init?(coder: NSCoder) {
@@ -89,21 +90,27 @@ class OnboardingPageViewController: UIPageViewController {
     }
     
     private func setupUI() {
-        guard let firstImage = firstPage, let secondImage = secondPage, let thirdImage = thirdPage else { return }
+        guard
+            let firstImage = firstPage,
+            let secondImage = secondPage,
+            let thirdImage = thirdPage
+        else {
+            return
+        }
         let first = OnboardingHelper(
             title: Constants.OnboardingText.firstTitle,
             text: Constants.OnboardingText.firstText,
-            image: firstImage
+            imageName: firstImage
         )
         let second = OnboardingHelper(
             title: Constants.OnboardingText.secondTitle,
             text: Constants.OnboardingText.secondText,
-            image: secondImage
+            imageName: secondImage
         )
         let third = OnboardingHelper(
             title: Constants.OnboardingText.thirdTitle,
             text: Constants.OnboardingText.thirdText,
-            image: thirdImage
+            imageName: thirdImage
         )
         pages.append(first)
         pages.append(second)
@@ -133,7 +140,7 @@ class OnboardingPageViewController: UIPageViewController {
         present(tabBarVC, animated: true)
     }
     
-    @objc private func moveToNextPage() {
+    @objc private func moveToNextPageAction() {
         guard let currentViewController = viewControllers?.first,
                  let nextViewController = dataSource?.pageViewController(
                     self,
@@ -153,28 +160,29 @@ class OnboardingPageViewController: UIPageViewController {
 extension OnboardingPageViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewController = viewController as? OnboardingViewController else { return nil }
-        if let index = onboardingViewControllers.firstIndex(of: viewController) {
-            if index > 0 {
-                currentIndex -= 1
-                isLastView(index: index)
-                return onboardingViewControllers[index - 1]
-            }
+        guard
+            let viewController = viewController as? OnboardingViewController,
+            let index = onboardingViewControllers.firstIndex(of: viewController),
+            index > 0
+        else {
+            return nil
         }
-        return nil
+        currentIndex -= 1
+        isLastView(index: index)
+        return onboardingViewControllers[index - 1]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewController = viewController as? OnboardingViewController else { return nil }
-        if let index = onboardingViewControllers.firstIndex(of: viewController) {
-            if index < pages.count - 1 {
-                currentIndex += 1
-                isLastView(index: index)
-                return onboardingViewControllers[index + 1]
-            }
+        guard let viewController = viewController as? OnboardingViewController,
+              let index = onboardingViewControllers.firstIndex(of: viewController),
+              index < pages.count - 1
+        else {
+            return nil
         }
-        return nil
+        currentIndex += 1
+        isLastView(index: index)
+        return onboardingViewControllers[index + 1]
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
@@ -182,19 +190,21 @@ extension OnboardingPageViewController: UIPageViewControllerDelegate, UIPageView
     }
     
     func pageViewController(
-            _ pageViewController: UIPageViewController,
-            willTransitionTo pendingViewControllers: [UIViewController]
-        ) {
-            guard let nextVCOptional = pendingViewControllers.first,
-                let nextVC = nextVCOptional as? OnboardingViewController,
-                let index = onboardingViewControllers.firstIndex(of: nextVC) else { return }
-            switch index {
-            case onboardingViewControllers.indices.last:
-                isLastView(index: index)
-            default:
-                isLastView(index: index)
-            }
+        _ pageViewController: UIPageViewController,
+        willTransitionTo pendingViewControllers: [UIViewController]) {
+        guard let nextVCOptional = pendingViewControllers.first,
+              let nextVC = nextVCOptional as? OnboardingViewController,
+              let index = onboardingViewControllers.firstIndex(of: nextVC)
+        else {
+            return
         }
+        switch index {
+        case onboardingViewControllers.indices.last:
+            isLastView(index: index)
+        default:
+            isLastView(index: index)
+        }
+    }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return currentIndex

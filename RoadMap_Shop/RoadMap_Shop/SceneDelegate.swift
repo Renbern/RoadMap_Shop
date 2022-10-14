@@ -18,8 +18,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarViewController = MainTabBarViewController()
         let onboardingPageViewController = OnboardingPageViewController()
         let defaults = UserDefaults.standard
-        defaults.object(forKey: "onboarding")
-        if defaults.bool(forKey: "onboarding") {
+        defaults.object(forKey: Constants.OnboardingText.userDefaultsKey)
+        if defaults.bool(forKey: Constants.OnboardingText.userDefaultsKey) {
             window?.rootViewController = tabBarViewController
         } else {
             window?.rootViewController = onboardingPageViewController

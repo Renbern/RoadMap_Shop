@@ -41,14 +41,6 @@ final class MainTabBarViewController: UITabBarController {
         super.viewDidLoad()
         setupUI()
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
     
     // MARK: - Private methods
     private func setupUI() {

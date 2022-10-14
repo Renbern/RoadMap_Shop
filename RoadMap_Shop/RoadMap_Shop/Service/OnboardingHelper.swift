@@ -11,6 +11,6 @@ import UIKit
 struct OnboardingHelper: Equatable {
     var title = String()
     var text = String()
-    var image = UIImage()
-    var firstLaunch = false
+    var imageName = UIImage()
+    var isFirstLaunch = false
 }
