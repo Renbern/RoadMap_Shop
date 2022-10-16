@@ -61,6 +61,22 @@ final class OnboardingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setInitialLabelsAlpha()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        labelAnimation()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        labelAnimation()
+    }
+    
     // MARK: - Private methods
     @objc private func showMainAppAction() {
         dismiss(animated: true)
@@ -84,21 +100,5 @@ final class OnboardingViewController: UIViewController {
     private func setInitialLabelsAlpha() {
         pageTitleLabel.alpha = 0
         pageTextLabel.alpha = 0
-    }
-    
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setInitialLabelsAlpha()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        labelAnimation()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        labelAnimation()
     }
 }
