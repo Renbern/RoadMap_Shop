@@ -221,13 +221,13 @@ final class OfferViewController: UIViewController {
             forKey: Constants.TextForUIElements.photoForProdileImage
         ) as? Data else {
             let image = UIImage(
-                named: Constants.SystemImage.defaultImage)?.resizeImage(to: CGSize(width: 35, height: 35)
+                systemName: Constants.SystemImage.defaultImage)?.resizeImage(to: CGSize(width: 35, height: 35)
                 )
             return image
         }
         guard let image = UIImage(data: dataImage) else {
             let image = UIImage(
-                named: Constants.SystemImage.defaultImage)?.resizeImage(to: CGSize(width: 35, height: 35)
+                systemName: Constants.SystemImage.defaultImage)?.resizeImage(to: CGSize(width: 35, height: 35)
                 )
             return image
         }

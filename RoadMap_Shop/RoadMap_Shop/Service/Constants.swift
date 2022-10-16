@@ -117,4 +117,26 @@ final class Constants {
         static let searchItemImage = "magnifyingglass"
         static let cartItemImage = "bag"
     }
+    
+    enum OnboardingImage {
+        static let firstImage = "page1"
+        static let secondImage = "page2"
+        static let thirdImage = "page3"
+    }
+    
+    enum OnboardingText {
+        static let firstTitle = "Онлайн-магазин re:STORE"
+        static let secondTitle = "Регулярные скидки постоянным клиентам!"
+        static let thirdTitle = "Покупка в ОДИН клик!"
+        static let firstText = "Лучшие продукты по лучшим ценам!"
+        static let secondText = "Только в нашем онлайн-магазине скидки увеличиваются от количества заказов"
+        static let thirdText = "Удобынй интерфейс мобильного приложения позволяет вам делать покупки всего в один клик!"
+        static let userDefaultsKey = "onboarding"
+    }
+    
+    enum OnboardingButtonText {
+        static let skip = "SKIP"
+        static let next = "NEXT"
+        static let getStarted = "GET STARTED"
+    }
 }

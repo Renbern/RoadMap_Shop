@@ -15,9 +15,15 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let applicationScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: applicationScene)
-        window?.makeKeyAndVisible()
-        
         let tabBarViewController = MainTabBarViewController()
-        window?.rootViewController = tabBarViewController
+        let onboardingPageViewController = OnboardingPageViewController()
+        let defaults = UserDefaults.standard
+        defaults.object(forKey: Constants.OnboardingText.userDefaultsKey)
+        if defaults.bool(forKey: Constants.OnboardingText.userDefaultsKey) {
+            window?.rootViewController = tabBarViewController
+        } else {
+            window?.rootViewController = onboardingPageViewController
+        }
+        window?.makeKeyAndVisible()
     }
 }
